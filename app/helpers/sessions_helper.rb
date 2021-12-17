@@ -12,4 +12,10 @@ module SessionsHelper
     end
   end
   
+  # ユーザがログイン状態でtrueを返し、それ以外の状態ならfalseを返す
+  # ログイン状態 = sessionにユーザーidが存在している
+  def logged_in?
+    !current_user.nil?
+  end
+  
 end
