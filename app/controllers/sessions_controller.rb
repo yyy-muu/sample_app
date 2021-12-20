@@ -10,8 +10,9 @@ class SessionsController < ApplicationController
       log_in user
       # user_url(user)ルーティングに変換している
       
-      # ログインしてユーザーを保持する 
-      remember user
+      # チェックボックスがオンのときにユーザーを記憶し、
+      # オフのときには記憶しない
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       
       # ログイン後、ユーザ情報ページにリダイレクトする
       redirect_to user
