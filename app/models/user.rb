@@ -6,8 +6,13 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+  
+  # has_secure_passwordでは（追加したバリデーションとは別に）
+  # オブジェクト生成時に存在性を検証する
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  
+  # 空のパスワード（nil）は新規ユーザー登録時に有効にならない
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
