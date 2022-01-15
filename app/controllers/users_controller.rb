@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
   # 何らかの処理が実行される直前に特定のメソッドを実行する
   # コントローラ内のすべてのアクションに適用させないため、only:オプションで指定する
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
-
+  
+  # 全ユーザーが格納された変数を作成し
+  # 順々に表示するindexビューを実装
+  def index
+    @users = User.paginate(page: params[:page])
+  end
+  
   def show
     @user = User.find(params[:id])
   end

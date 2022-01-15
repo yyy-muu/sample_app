@@ -1,0 +1,15 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<!--ユーザーのページネーションを行うようにRailsに指示する-->
+<%= will_paginate %>
+
+<!--ユーザーを列挙してユーザーごとにliタグで囲むビューを作成する-->
+<ul class="users">
+  
+    <!--自動的に_user.html.erbという名前のパーシャルを探しにいく-->
+    <%= render @users %>
+
+</ul>
+
+<%= will_paginate %>
