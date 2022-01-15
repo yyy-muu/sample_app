@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   # 何らかの処理が実行される直前に特定のメソッドを実行する
   # コントローラ内のすべてのアクションに適用させないため、only:オプションで指定する
-  before_action :logged_in_user, only: [:index, :edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: :destroy
+  
   
   # 全ユーザーが格納された変数を作成し
   # 順々に表示するindexビューを実装
@@ -43,6 +45,14 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
+  # 該当するユーザーを見つけActive Recordのdestroyメソッドを使って削除
+  # 最後にユーザーindexに移動
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
 
   private
 
@@ -67,6 +77,11 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
+    end
+    
+    # 管理者かどうか確認
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
     
 end

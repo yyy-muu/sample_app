@@ -5,7 +5,9 @@
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
-             password_confirmation: "foobar")
+             password_confirmation: "foobar",
+            # 最初のユーザーだけをデフォルトで管理者にする
+             admin: true)
 
 # 追加のユーザーを99回まとめて生成する
 99.times do |n|
