@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  # 自動的にRailsアプリケーションが表 7.1のRESTful URI に応答する
+  
+  # 自動的にRailsアプリケーションがRESTful URI に応答する
   resources :users
+  
+  # editアクションへの名前付きルート, アカウント有効化
+  resources :account_activations, only: [:edit]
 end

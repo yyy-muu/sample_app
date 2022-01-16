@@ -1,6 +1,12 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
-  before_save { self.email = email.downcase }
+  attr_accessor :remember_token, :activation_token
+  before_save   :downcase_email
+  
+  # メソッド参照
+  # create_activation_digestというメソッドを探し
+  # ユーザーを作成する前に実行
+  before_create :create_activation_digest
+  
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -43,4 +49,42 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+  
+  # トークンがダイジェストと一致したらtrueを返す
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+  
+  def activate
+    # update_attribute(:activated,    true)
+    # update_attribute(:activated_at, Time.zone.now)
+    # データベースへの問い合わせが１回で済む
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  # 有効化用のメールを送信する
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+  
+  private
+
+    # メールアドレスをすべて小文字にする
+    def downcase_email
+      
+      # 代入を要するメソッド
+      # self.email = email.downcase
+      
+      # 代入せずに済むメソッド
+      email.downcase!
+    end
+
+    # 有効化トークンとダイジェストを作成および代入する
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
+  
 end
