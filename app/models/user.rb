@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   
   # ユーザーがマイクロポストを複数所有する
-  has_many :microposts
+  # サイト管理者はユーザーを破棄する権限を持つ
+  # ユーザーが削除されたときに、そのユーザーに紐付いた（そのユーザーが投稿した）
+  # マイクロポストも一緒に削除される
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   
