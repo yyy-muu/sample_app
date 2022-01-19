@@ -96,6 +96,14 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
   
+  # フィード(未完成)
+  # 完全な実装は次章の「ユーザーをフォローする」を参照
+  def feed
+    # idに?を代入、SQLクエリに代入する前にidがエスケープされる
+    # SQLインジェクション対策
+    Micropost.where("user_id = ?", id)
+  end
+  
   private
 
     # メールアドレスをすべて小文字にする
