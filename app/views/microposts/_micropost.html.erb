@@ -2,7 +2,14 @@
 <li id="micropost-<%= micropost.id %>">
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
-  <span class="content"><%= micropost.content %></span>
+  <span class="content">
+    <%= micropost.content %>
+    
+    <!--関連付けられたmicropost.imageを描画-->
+    <!--画像の無い（テキストのみの）マイクロポストでは画像を表示させない-->
+    <!--リサイズ済みのdisplay_image-->
+    <%= image_tag micropost.display_image if micropost.image.attached? %>
+  </span>
   
   <!--3分前に投稿といった文字列を出力-->
   <span class="timestamp">

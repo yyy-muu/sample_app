@@ -3,9 +3,12 @@ class MicropostsController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   # createアクションへの送信が失敗(投稿失敗)した場合に備えて、
-  # 必要なフィード変数をこのブランチで渡し
+  # 必要なフィード変数をこのブランチで渡す
   def create
     @micropost = current_user.microposts.build(micropost_params)
+    
+    # アップロードされた画像を@micropostオブジェクトにアタッチ
+    @micropost.image.attach(params[:micropost][:image])
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to root_url
@@ -32,7 +35,8 @@ class MicropostsController < ApplicationController
     # Strong Parameters
     # content属性だけがWeb経由で変更可能
     def micropost_params
-      params.require(:micropost).permit(:content)
+      # :imageも許可済み属性リストに追加
+      params.require(:micropost).permit(:content, :image)
     end
     
     def correct_user
