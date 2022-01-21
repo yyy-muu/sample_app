@@ -1,0 +1,27 @@
+<!--プロフィールページとHomeページの両方に表示される-->
+
+<!--現在のユーザーを取得-->
+<!--nilの場合（つまりHomeページの場合）には
+@userにcurrent_userを代入する-->
+<% @user ||= current_user %>
+<div class="stats">
+  
+  <!--フォローしているユーザーの人数-->
+  <a href="<%= following_user_path(@user) %>">
+    
+    
+    <!--Ajax実装：idを指定してページ要素にアクセス-->
+    <strong id="following" class="stat">
+      <%= @user.following.count %>
+    </strong>
+    following
+  </a>
+  
+  <!--フォロワーの人数-->
+  <a href="<%= followers_user_path(@user) %>">
+    <strong id="followers" class="stat">
+      <%= @user.followers.count %>
+    </strong>
+    followers
+  </a>
+</div>

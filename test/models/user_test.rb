@@ -98,4 +98,27 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
+  test "should follow and unfollow a user" do
+    michael = users(:michael)
+    archer  = users(:archer)
+    
+    # ユーザーをまだフォローしていないことを確認
+    assert_not michael.following?(archer)
+    
+    # そのユーザーをフォロー
+    michael.follow(archer)
+    
+    # フォロー中になったことを確認
+    assert michael.following?(archer)
+    
+    # フォロワーのデータモデルが正しく動作していることを確認
+    # フォロワーの中に追加されているか(含まれているか)確認
+    assert archer.followers.include?(michael)
+    
+    # フォロー解除
+    michael.unfollow(archer)
+    # フォロー解除できたことを確認
+    assert_not michael.following?(archer)
+  end
+  
 end

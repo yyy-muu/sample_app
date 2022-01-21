@@ -7,11 +7,20 @@
         <%= @user.name %>
       </h1>
     </section>
+    
+    <!--フォロワーの統計情報-->
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+    
   </aside>
   <div class="col-md-8">
     
+    <!--フォロー用フォーム-->
+    <%= render 'follow_form' if logged_in? %>
+    
     <!--ユーザーのマイクロポストが1つもない場合には
-    空のリストを表示させていない-->
+    空のリストを表示させない-->
     <% if @user.microposts.any? %>
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">

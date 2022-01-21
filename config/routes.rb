@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   
   # 自動的にRailsアプリケーションがRESTful URI に応答する
-  resources :users
+  # ユーザーidが含まれているURLをGETする
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
   
   # editアクションへの名前付きルート, アカウント有効化
   resources :account_activations, only: [:edit]
@@ -21,4 +26,7 @@ Rails.application.routes.draw do
   
   
   resources :microposts,          only: [:create, :destroy]
+
+  resources :relationships,       only: [:create, :destroy]
+
 end
