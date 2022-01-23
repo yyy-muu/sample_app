@@ -118,13 +118,20 @@ class User < ApplicationRecord
     # 現在時刻より2時間以上前（早い）の場合
     reset_sent_at < 2.hours.ago
   end
-  
-  # フィード(未完成)
-  # 完全な実装は次章の「ユーザーをフォローする」を参照
+
+  # フォローしているユーザーに対応するidの配列を持つマイクロポストをすべて選択（select）する
+  # ユーザーのステータスフィードを返す
   def feed
-    # idに?を代入、SQLクエリに代入する前にidがエスケープされる
-    # SQLインジェクション対策
-    Micropost.where("user_id = ?", id)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE follower_id = :user_id"
+    # whereメソッド内の変数に、キーと値のペアを使う
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
+  end
+
+  # ユーザーをフォローする
+  def follow(other_user)
+    following << other_user
   end
   
   
@@ -145,6 +152,8 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
   
+  
+  
   private
 
     # メールアドレスをすべて小文字にする
@@ -163,4 +172,6 @@ class User < ApplicationRecord
       self.activation_digest = User.digest(activation_token)
     end
   
+  
+    
 end

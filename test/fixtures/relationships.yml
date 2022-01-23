@@ -1,2 +1,15 @@
-# 空にする
-# マイグレーション（リスト 14.1）で制約させた一意性を満たすことができません
+one:
+  follower: michael
+  followed: lana
+
+two:
+  follower: michael
+  followed: malory
+
+three:
+  follower: lana
+  followed: michael
+
+four:
+  follower: archer
+  followed: michael

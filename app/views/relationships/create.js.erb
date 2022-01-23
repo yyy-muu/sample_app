@@ -1,0 +1,5 @@
+<!--JavaScriptと埋め込みRubyを使ってフォローの関係性を作成する-->
+<!--フォロー用フォーム全体を"escape_javascriptメソッド"に置き換え-->
+$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>");
+
+$("#followers").html('<%= @user.followers.count %>');
