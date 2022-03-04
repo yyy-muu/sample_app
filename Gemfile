@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails',      '6.0.3'
 
 # 画像処理(リサイズ)
-gem 'image_processing',           '1.9.3'
+gem 'image_processing',           '1.12.2'
 
 # Ruby製ImageMagickプロセッサ
 gem 'mini_magick',                '4.9.5'
