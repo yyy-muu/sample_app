@@ -16,7 +16,8 @@
   },
   
   "resolutions": {
-    "activestorage": "^6.0.4.7",
-    "glob-parent": "5.1.2"
+    "activestorage": "6.0.4.7",
+    "glob-parent": "5.1.2",
+    "nth-check": "2.0.1"
   }
 }
