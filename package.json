@@ -13,5 +13,10 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^4.7.4"
+  },
+  
+  "resolutions": {
+    "activestorage": "^6.0.4.7",
+    "glob-parent": "5.1.2"
   }
 }
