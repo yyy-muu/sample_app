@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails',      '>=6.0.3'
+gem "activesupport", ">= 6.0.3.1"
 
 # 画像処理(リサイズ)
 gem 'image_processing',           '1.12.2'
