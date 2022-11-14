@@ -2,9 +2,9 @@
   "name": "sample_app",
   "private": true,
   "dependencies": {
-    "@rails/actioncable": "^7.0.3",
-    "@rails/activestorage": "^7.0.4",
-    "@rails/ujs": "^7.0.3",
+    "@rails/actioncable": "^7.0.4",
+    "@rails/activestorage": "^7.0.2",
+    "@rails/ujs": "^7.0.4",
     "@rails/webpacker": "^5.4.3",
     "bootstrap": "3.4.1",
     "jquery": "3.6.1",
@@ -12,7 +12,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^4.11.0"
+    "webpack-dev-server": "^4.11.1"
   },
   
   "resolutions": {
